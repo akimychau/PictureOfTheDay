@@ -46,4 +46,8 @@
     <string name="day_before_yesterday">day before yesterday</string>
     <string name="yesterday">yesterday</string>
     <string name="today">today</string>
+    <string name="description">Description</string>
+    <string name="tittle">Tittle</string>
+    <string name="not_ready">Not ready yet</string>
+    <string name="not_ready_description">You live a few hours ahead of Nasa ;) </string>
 </resources>

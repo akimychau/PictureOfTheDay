@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -53,20 +54,33 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun renderData() {
-        viewModel.getLiveData().observe(viewLifecycleOwner) {
-            when (it) {
+        viewModel.getLiveData().observe(viewLifecycleOwner) { appState ->
+            when (appState) {
                 is AppState.Error -> {
                     binding.progressBar.makeGone()
                     binding.imageView.load(R.drawable.ic_baseline_report_gmailerrorred_24)
-                    Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT)
+                    view?.findViewById<TextView>(R.id.bottomSheetDescription)?.text =
+                        getString(R.string.not_ready_description)
+                    view?.findViewById<TextView>(R.id.bottomSheetDescriptionHeader)?.text =
+                        getString(R.string.not_ready)
+                    Toast.makeText(requireContext(),
+                        "Something went wrong. Try it later",
+                        Toast.LENGTH_SHORT)
                         .show()
                 }
                 is AppState.Success -> {
-                    binding.imageView.load(it.pictureOfTheDayResponseData.url) {
-                        placeholder(R.drawable.ic_baseline_wallpaper_24)
-                        error(R.drawable.ic_baseline_report_gmailerrorred_24)
+                    with(appState) {
+                        binding.imageView.load(pictureOfTheDayResponseData.url) {
+                            placeholder(R.drawable.ic_baseline_wallpaper_24)
+                            error(R.drawable.ic_baseline_report_gmailerrorred_24)
+                        }
+                        binding.progressBar.makeGone()
+                        binding
+                        view?.findViewById<TextView>(R.id.bottomSheetDescription)?.text =
+                            pictureOfTheDayResponseData.explanation
+                        view?.findViewById<TextView>(R.id.bottomSheetDescriptionHeader)?.text =
+                            pictureOfTheDayResponseData.title
                     }
-                    binding.progressBar.makeGone()
                 }
                 AppState.Loading -> {
                     binding.progressBar.makeVisible()

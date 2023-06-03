@@ -12,12 +12,12 @@ import ru.akimychev.pictureoftheday.subscribeByDefault
 class PictureOfTheDayViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData(),
     private val repositoryImpl: RepositoryImpl = RepositoryImpl(),
-    private val daysValues: DaysValues = DaysValues()
+    private val daysValues: DaysValues = DaysValues(),
 ) : ViewModel() {
 
     private val bag = CompositeDisposable()
 
-    fun getDaysValues(): DaysValues{
+    fun getDaysValues(): DaysValues {
         return daysValues
     }
 
@@ -25,9 +25,9 @@ class PictureOfTheDayViewModel(
         return liveData
     }
 
-    fun sendRequest(data: String? = null) {
+    fun sendRequest(date: String? = null) {
         liveData.value = AppState.Loading
-        repositoryImpl.getPictureOfTheDayAPI(data)
+        repositoryImpl.getPictureOfTheDayAPI(date)
             .subscribeByDefault()
             .subscribe(
                 {
