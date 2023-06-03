@@ -22,7 +22,7 @@ class RepositoryImpl : Repository {
             .build()
     }
 
-    fun getPictureOfTheDayAPI(): Single<PictureOfTheDayResponseData> {
-        return pictureOfTheDayAPI.getPictureOfTheDay(BuildConfig.NASA_API_KEY)
+    fun getPictureOfTheDayAPI(date: String?): Single<PictureOfTheDayResponseData> {
+        return pictureOfTheDayAPI.getPictureOfTheDay(BuildConfig.NASA_API_KEY, date)
     }
 }
