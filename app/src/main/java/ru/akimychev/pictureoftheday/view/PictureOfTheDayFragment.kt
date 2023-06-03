@@ -42,13 +42,13 @@ class PictureOfTheDayFragment : Fragment() {
         renderData()
 
         binding.chipToday.setOnClickListener {
-            viewModel.sendRequest(viewModel.today)
+            viewModel.sendRequest(viewModel.getDaysValues().today)
         }
         binding.chipYesterday.setOnClickListener {
-            viewModel.sendRequest(viewModel.yesterday)
+            viewModel.sendRequest(viewModel.getDaysValues().yesterday)
         }
         binding.chipDayBeforeYesterday.setOnClickListener {
-            viewModel.sendRequest(viewModel.dayBeforeYesterday)
+            viewModel.sendRequest(viewModel.getDaysValues().dayBeforeYesterday)
         }
     }
 
