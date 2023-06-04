@@ -3,4 +3,5 @@
     <dimen name="titleSize">30sp</dimen>
     <dimen name="description_size">18sp</dimen>
     <dimen name="padding_description">10dp</dimen>
+    <dimen name="wiki_padding">15dp</dimen>
 </resources>
