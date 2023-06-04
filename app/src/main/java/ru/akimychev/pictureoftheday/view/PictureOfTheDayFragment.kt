@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.akimychev.pictureoftheday.R
 import ru.akimychev.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
 import ru.akimychev.pictureoftheday.makeGone
@@ -22,6 +25,8 @@ class PictureOfTheDayFragment : Fragment() {
 
     private var _binding: FragmentPictureOfTheDayBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this)[PictureOfTheDayViewModel::class.java]
@@ -51,6 +56,8 @@ class PictureOfTheDayFragment : Fragment() {
         binding.chipDayBeforeYesterday.setOnClickListener {
             viewModel.sendRequest(viewModel.getDaysValues().dayBeforeYesterday)
         }
+
+        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
     }
 
     private fun renderData() {
@@ -87,6 +94,11 @@ class PictureOfTheDayFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun setBottomSheetBehavior(bottomSheet: LinearLayout) {
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     override fun onDestroyView() {
