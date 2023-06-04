@@ -59,10 +59,17 @@ class PictureOfTheDayFragment : Fragment() {
         }
 
         binding.inputLayout.setEndIconOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data =
-                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
-            })
+            if (binding.inputEditText.text?.length!! <= binding.inputLayout.counterMaxLength) {
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data =
+                        Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+                })
+            } else {
+                Toast.makeText(requireContext(),
+                    "Character limit exceeded",
+                    Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
 
         setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
