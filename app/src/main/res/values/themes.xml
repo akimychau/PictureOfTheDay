@@ -1,9 +1,37 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.PictureOfTheDay" parent="Theme.Material3.DynamicColors.DayNight">
+    <style name="Base.Theme.PictureOfTheDay" parent="Theme.Material3.DayNight">
+        <item name="colorPrimary">?attr/myFirstColor</item>
+        <item name="colorSecondary">?attr/mySecondColor</item>
+        <item name="chipStyle">@style/myChipStyle</item>
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
     <style name="Theme.PictureOfTheDay" parent="Base.Theme.PictureOfTheDay" />
+
+    //Themes
+    <style name="MyCyanTheme" parent="Base.Theme.PictureOfTheDay">
+        <item name="myFirstColor">#4DD0E1</item>
+        <item name="mySecondColor">#FFCCBC</item>
+        <item name="myThirdColor">#FF8965</item>
+    </style>
+
+    <style name="MyGreenTheme" parent="Base.Theme.PictureOfTheDay">
+        <item name="myFirstColor">#138900</item>
+        <item name="mySecondColor">#FC717B</item>
+        <item name="myThirdColor">#A2000C</item>
+    </style>
+
+    <style name="MyPurpleTheme" parent="Base.Theme.PictureOfTheDay">
+        <item name="myFirstColor">#996AD6</item>
+        <item name="mySecondColor">#FFF273</item>
+        <item name="myThirdColor">#A69700</item>
+    </style>
+
+    //Chips
+    <style name="myChipStyle" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@drawable/my_selector_background_chip</item>
+        <item name="rippleColor">?attr/myThirdColor</item>
+    </style>
 </resources>
