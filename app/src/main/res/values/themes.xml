@@ -10,28 +10,40 @@
 
     <style name="Theme.PictureOfTheDay" parent="Base.Theme.PictureOfTheDay" />
 
-    //Themes
+<!--    Themes-->
     <style name="MyCyanTheme" parent="Base.Theme.PictureOfTheDay">
         <item name="myFirstColor">#4DD0E1</item>
         <item name="mySecondColor">#FFCCBC</item>
         <item name="myThirdColor">#FF8965</item>
+        <item name="myFamilyFont">@font/anaheim</item>
+        <item name="myChipsTextColor">#000000</item>
     </style>
 
     <style name="MyGreenTheme" parent="Base.Theme.PictureOfTheDay">
         <item name="myFirstColor">#138900</item>
         <item name="mySecondColor">#FC717B</item>
         <item name="myThirdColor">#A2000C</item>
+        <item name="myFamilyFont">@font/aguafina_script</item>
+        <item name="myChipsTextColor">#FFEB3B</item>
     </style>
 
     <style name="MyPurpleTheme" parent="Base.Theme.PictureOfTheDay">
         <item name="myFirstColor">#996AD6</item>
         <item name="mySecondColor">#FFF273</item>
         <item name="myThirdColor">#A69700</item>
+        <item name="myFamilyFont">@font/beth_ellen</item>
+        <item name="myChipsTextColor">#FF0000</item>
     </style>
 
-    //Chips
+<!--    Chips-->
     <style name="myChipStyle" parent="Widget.Material3.Chip.Suggestion">
         <item name="chipBackgroundColor">@drawable/my_selector_background_chip</item>
         <item name="rippleColor">?attr/myThirdColor</item>
+        <item name="android:textColor">?myChipsTextColor</item>
+        <item name="android:textAppearance">@style/MyTextAppearanceLabelLarge</item>
+    </style>
+
+    <style name="MyTextAppearanceLabelLarge" parent="TextAppearance.Material3.LabelLarge">
+        <item name="fontFamily">?myFamilyFont</item>
     </style>
 </resources>
