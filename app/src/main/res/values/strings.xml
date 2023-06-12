@@ -52,4 +52,6 @@
     <string name="not_ready_description">You live a few hours ahead of Nasa ;) </string>
     <string name="search_wiki">Wiki search</string>
     <string name="wiki_helper_text">Find something on Wikipedia</string>
+    <string name="favorite">Favorite</string>
+    <string name="settings">Settings</string>
 </resources>

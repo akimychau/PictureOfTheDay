@@ -4,17 +4,19 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import ru.akimychev.pictureoftheday.MainActivity
 import ru.akimychev.pictureoftheday.R
 import ru.akimychev.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
 import ru.akimychev.pictureoftheday.makeGone
@@ -22,7 +24,7 @@ import ru.akimychev.pictureoftheday.makeVisible
 import ru.akimychev.pictureoftheday.viewmodel.AppState
 import ru.akimychev.pictureoftheday.viewmodel.PictureOfTheDayViewModel
 
-class PictureOfTheDayFragment : Fragment() {
+class PictureOfTheDayFragment : Fragment(), MenuProvider {
 
     private var _binding: FragmentPictureOfTheDayBinding? = null
     private val binding get() = _binding!!
@@ -46,8 +48,26 @@ class PictureOfTheDayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.sendRequest()
+
         renderData()
 
+        chipsListener()
+
+        wikiSearch()
+
+        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+
+        addMenuProvider()
+    }
+
+    private fun addMenuProvider() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        (requireActivity() as MainActivity).setSupportActionBar(binding.bottomAppBar)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun chipsListener() {
         binding.chipToday.setOnClickListener {
             viewModel.sendRequest(viewModel.getDaysValues().today)
         }
@@ -57,22 +77,6 @@ class PictureOfTheDayFragment : Fragment() {
         binding.chipDayBeforeYesterday.setOnClickListener {
             viewModel.sendRequest(viewModel.getDaysValues().dayBeforeYesterday)
         }
-
-        binding.inputLayout.setEndIconOnClickListener {
-            if (binding.inputEditText.text?.length!! <= binding.inputLayout.counterMaxLength) {
-                startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    data =
-                        Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
-                })
-            } else {
-                Toast.makeText(requireContext(),
-                    "Character limit exceeded",
-                    Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-
-        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
     }
 
     private fun renderData() {
@@ -114,6 +118,34 @@ class PictureOfTheDayFragment : Fragment() {
     private fun setBottomSheetBehavior(bottomSheet: LinearLayout) {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
+    private fun wikiSearch() {
+        binding.inputLayout.setEndIconOnClickListener {
+            if (binding.inputEditText.text?.length!! <= binding.inputLayout.counterMaxLength) {
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data =
+                        Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+                })
+            } else {
+                Toast.makeText(requireContext(),
+                    "Character limit exceeded",
+                    Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_main, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+            R.id.app_bar_fav -> {}
+            R.id.app_bar_settings -> {}
+        }
+        return false
     }
 
     override fun onDestroyView() {

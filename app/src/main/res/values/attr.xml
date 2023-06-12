@@ -3,6 +3,10 @@
     <attr name="myFirstColor" format="color"/>
     <attr name="mySecondColor" format="color"/>
     <attr name="myThirdColor" format="color"/>
-    <attr name="myFamilyFont" format="string"/>
     <attr name="myChipsTextColor" format="color"/>
+
+    <attr name="myFamilyFont" format="string"/>
+
+    <attr name="myCornerFamily" format="integer"/>
+    <attr name="myCornerSize" format="dimension|fraction"/>
 </resources>
