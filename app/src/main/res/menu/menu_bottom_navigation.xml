@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none"
+        android:id="@+id/two_screens">
+        <item
+            android:id="@+id/navigation_archive"
+            android:icon="@drawable/baseline_archive_24"
+            android:title="To screen 1" />
+        <item
+            android:id="@+id/navigation_send"
+            android:icon="@drawable/baseline_send_24"
+            android:title="To screen 2" />
+    </group>
+    <group android:checkableBehavior="none"
+        android:id="@+id/exit">
+    <item
+        android:id="@+id/navigation_exit"
+        android:icon="@drawable/baseline_exit_to_app_24"
+        android:title="Exit" />
+</group>
+</menu>

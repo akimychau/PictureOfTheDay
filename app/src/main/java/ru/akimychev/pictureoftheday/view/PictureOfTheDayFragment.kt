@@ -21,6 +21,7 @@ import ru.akimychev.pictureoftheday.R
 import ru.akimychev.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
 import ru.akimychev.pictureoftheday.makeGone
 import ru.akimychev.pictureoftheday.makeVisible
+import ru.akimychev.pictureoftheday.view.drawer.BottomNavigationDrawerFragment
 import ru.akimychev.pictureoftheday.viewmodel.AppState
 import ru.akimychev.pictureoftheday.viewmodel.PictureOfTheDayViewModel
 
@@ -89,11 +90,14 @@ class PictureOfTheDayFragment : Fragment(), MenuProvider {
                         getString(R.string.not_ready_description)
                     view?.findViewById<TextView>(R.id.bottomSheetDescriptionHeader)?.text =
                         getString(R.string.not_ready)
-                    Toast.makeText(requireContext(),
+                    Toast.makeText(
+                        requireContext(),
                         "Something went wrong. Try it later",
-                        Toast.LENGTH_SHORT)
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
+
                 is AppState.Success -> {
                     with(appState) {
                         binding.imageView.load(pictureOfTheDayResponseData.url) {
@@ -108,6 +112,7 @@ class PictureOfTheDayFragment : Fragment(), MenuProvider {
                             pictureOfTheDayResponseData.title
                     }
                 }
+
                 AppState.Loading -> {
                     binding.progressBar.makeVisible()
                 }
@@ -128,9 +133,11 @@ class PictureOfTheDayFragment : Fragment(), MenuProvider {
                         Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
                 })
             } else {
-                Toast.makeText(requireContext(),
+                Toast.makeText(
+                    requireContext(),
                     "Character limit exceeded",
-                    Toast.LENGTH_SHORT)
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
         }
@@ -144,6 +151,11 @@ class PictureOfTheDayFragment : Fragment(), MenuProvider {
         when (menuItem.itemId) {
             R.id.app_bar_fav -> {}
             R.id.app_bar_settings -> {}
+            android.R.id.home -> {
+                activity?.let {
+                    BottomNavigationDrawerFragment().show(it.supportFragmentManager, tag)
+                }
+            }
         }
         return false
     }
