@@ -22,6 +22,7 @@ import ru.akimychev.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
 import ru.akimychev.pictureoftheday.makeGone
 import ru.akimychev.pictureoftheday.makeVisible
 import ru.akimychev.pictureoftheday.view.drawer.BottomNavigationDrawerFragment
+import ru.akimychev.pictureoftheday.view.settings.SettingsFragment
 import ru.akimychev.pictureoftheday.viewmodel.AppState
 import ru.akimychev.pictureoftheday.viewmodel.PictureOfTheDayViewModel
 
@@ -150,7 +151,12 @@ class PictureOfTheDayFragment : Fragment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.app_bar_fav -> {}
-            R.id.app_bar_settings -> {}
+            R.id.app_bar_settings -> {
+                requireActivity().supportFragmentManager.beginTransaction().hide(this)
+                    .add(R.id.container, SettingsFragment.newInstance()).addToBackStack("")
+                    .commit()
+            }
+
             android.R.id.home -> {
                 activity?.let {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, tag)
